@@ -5,7 +5,8 @@ def generate_decommission_gif(background_path="images/alertimage.png", output_pa
     end_date = datetime(2025, 12, 31)
     today = datetime.now()
     frames = []
-    new_size = (1600, 800)  # Increased height for larger text
+    # new_size = (1600, 800)  # Increased height for larger text
+    new_size=(1200,600)
     # Scale font size based on image dimensions for better adaptability
     font_size = int(min(new_size) * 0.35)  # 35% of smaller dimension for larger text
 
@@ -196,10 +197,14 @@ if __name__ == "__main__":
 
     # Generate static images in various sizes
     sizes = {
-        "small": (640, 480),        # Standard small (VGA)
-        "medium": (1280, 720),      # HD
-        "large": (1920, 1080),      # Full HD
-        "banner": (1200, 400)       # Typical web banner
+       # "small": (640, 480),        # Standard small (VGA) (640, 480)
+       # "medium": (1280, 720),      # HD (1280, 720)
+       # "large": (1920, 1080),      # Full HD (1920, 1080)
+       # "banner": (1200, 400)       # Typical web banner (1200, 400) 
+        "small": (320, 240),        # QVGA standard (320, 240)
+        "medium": (640, 480),       # VGA standard (640, 480)
+        "large": (800, 580),        # SVGA standard (800, 600)
+        "banner": (1200, 500)
     }
     for name, size in sizes.items():
         output_path = f"docs/decommission_alert_{name}.jpg"
