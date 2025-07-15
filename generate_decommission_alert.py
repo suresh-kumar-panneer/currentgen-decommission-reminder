@@ -196,10 +196,10 @@ if __name__ == "__main__":
 
     # Generate static images in various sizes
     sizes = {
-        "small": (440, 280),        # Standard small (VGA)(640, 480)
-        "medium": (640, 480),      # HD(1280, 720)
-        "large": (840, 680),      # Full HD(1920, 1080)
-        "banner": (1200, 500)       # Typical web banner(1200, 400)
+        "small": (640, 480),        # Standard small (VGA)
+        "medium": (1280, 720),      # HD
+        "large": (1920, 1080),      # Full HD
+        "banner": (1200, 400)       # Typical web banner
     }
     for name, size in sizes.items():
         output_path = f"docs/decommission_alert_{name}.jpg"
