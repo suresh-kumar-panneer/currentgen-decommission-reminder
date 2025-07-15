@@ -7,7 +7,7 @@ def generate_decommission_gif(background_path="images/alertimage.png", output_pa
     frames = []
     new_size = (1600, 800)  # Increased height for larger text
     # Scale font size based on image dimensions for better adaptability
-    font_size = int(min(new_size) * 0.25)  # 25% of smaller dimension
+    font_size = int(min(new_size) * 0.35)  # 35% of smaller dimension for larger text
 
     # Try to load a bold font
     try:
@@ -43,7 +43,7 @@ def generate_decommission_gif(background_path="images/alertimage.png", output_pa
 
         # Dynamically adjust font size to fit with better scaling
         temp_font_size = font_size
-        min_font_size = int(min(width, height) * 0.02)  # Minimum 2% of smaller dimension
+        min_font_size = int(min(width, height) * 0.05)  # Minimum 5% of smaller dimension
         while True:
             try:
                 font = ImageFont.truetype("arialbd.ttf", temp_font_size)
@@ -52,9 +52,9 @@ def generate_decommission_gif(background_path="images/alertimage.png", output_pa
             bbox = draw.textbbox((0, 0), text, font=font)
             text_width = bbox[2] - bbox[0]
             text_height = bbox[3] - bbox[1]
-            if text_width < width * 0.95 and text_height < height * 0.4:  # Allow more reasonable space
+            if text_width < width * 0.90 and text_height < height * 0.50:  # Allow more reasonable space
                 break
-            temp_font_size -= max(1, temp_font_size // 20)  # Reduce by 5% each iteration
+            temp_font_size -= max(1, temp_font_size // 15)  # Reduce by smaller increments
             if temp_font_size < min_font_size:
                 temp_font_size = min_font_size
                 break
@@ -115,7 +115,7 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
 
     width, height = size
     # Improved font selection and sizing based on image dimensions
-    base_font_size = int(min(width, height) * 0.15)  # Start with 15% of smaller dimension
+    base_font_size = int(min(width, height) * 0.25)  # Start with 25% of smaller dimension for larger text
     
     # Choose font based on image size for better readability
     if width >= 1600 or height >= 1200:
@@ -131,9 +131,9 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
     overlay = Image.new("RGBA", bg.size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(overlay)
 
-    # Dynamically adjust font size to fit (allow up to 90% width, 40% height for better fit)
+    # Dynamically adjust font size to fit (allow up to 90% width, 50% height for better fit)
     temp_font_size = base_font_size
-    min_font_size = int(min(width, height) * 0.02)  # Minimum 2% of smaller dimension
+    min_font_size = int(min(width, height) * 0.05)  # Minimum 5% of smaller dimension
     while True:
         try:
             font = ImageFont.truetype(font_path, temp_font_size)
@@ -142,9 +142,9 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
         bbox = draw.textbbox((0, 0), text, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
-        if text_width < width * 0.90 and text_height < height * 0.40:
+        if text_width < width * 0.90 and text_height < height * 0.50:
             break
-        temp_font_size -= max(1, temp_font_size // 20)  # Reduce by 5% each iteration
+        temp_font_size -= max(1, temp_font_size // 15)  # Reduce by smaller increments
         if temp_font_size < min_font_size:
             temp_font_size = min_font_size
             break
@@ -166,8 +166,8 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
 
     # Add generated date/time label at the top center with appropriate sizing
     generated_label = f"Generated: {today.strftime('%Y-%m-%d %H:%M:%S')}"
-    # Scale label font size appropriately (3-5% of smaller dimension)
-    label_font_size = max(12, int(min(width, height) * 0.04))  # Minimum 12px, max 4% of smaller dimension  
+    # Scale label font size appropriately (5-8% of smaller dimension)
+    label_font_size = max(16, int(min(width, height) * 0.06))  # Minimum 16px, max 6% of smaller dimension  
     try:
         label_font = ImageFont.truetype("arial.ttf", label_font_size)
     except IOError:
