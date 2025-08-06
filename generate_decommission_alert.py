@@ -116,15 +116,16 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
 
     width, height = size
     # Improved font selection and sizing based on image dimensions
-    base_font_size = int(min(width, height) * 0.25)  # Start with 25% of smaller dimension for larger text
+    # Increase font size for better visibility in the bottom banner
+    base_font_size = int(min(width, height) * 0.35)  # 35% of smaller dimension for larger text
     
-    # Choose font based on image size for better readability
-    if width >= 1600 or height >= 1200:
-        font_path = "arialbd.ttf"  # Bold for large images
-    elif width >= 800 or height >= 600:
-        font_path = "arialbd.ttf"  # Bold for medium images
-    else:
-        font_path = "arial.ttf"    # Regular for small images
+    # Use DejaVuSans-Bold font for all images for consistent sizing
+    try:
+        from PIL import ImageFont
+        font_path = ImageFont.truetype("DejaVuSans-Bold.ttf", 10).path
+    except Exception:
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"  # Common Linux path
+    # If not found, fallback to PIL's default font
 
     # Prepare background and overlay
     bg = Image.open(background_path).convert("RGBA")
@@ -132,38 +133,50 @@ def generate_static_image(size, output_path, background_path="images/alertimage.
     overlay = Image.new("RGBA", bg.size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(overlay)
 
-    # Dynamically adjust font size to fit (allow up to 90% width, 50% height for better fit)
-    temp_font_size = base_font_size
-    min_font_size = int(min(width, height) * 0.05)  # Minimum 5% of smaller dimension
+    # Calculate banner height before font sizing
+    banner_height = int(height * 0.13)
+
+    # Dynamically adjust font size to fill the bottom banner as much as possible
+    temp_font_size = int(banner_height * 1.1)  # Start with 110% of banner height
+    min_font_size = int(banner_height * 0.80)    # Minimum 80% of banner height
     while True:
         try:
             font = ImageFont.truetype(font_path, temp_font_size)
-        except IOError:
+        except Exception:
             font = ImageFont.load_default()
         bbox = draw.textbbox((0, 0), text, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
-        if text_width < width * 0.90 and text_height < height * 0.50:
+        # Fit within 99% width and 98% banner height
+        if text_width < width * 0.99 and text_height < banner_height * 0.98:
             break
-        temp_font_size -= max(1, temp_font_size // 15)  # Reduce by smaller increments
+        temp_font_size -= max(1, temp_font_size // 10)
         if temp_font_size < min_font_size:
             temp_font_size = min_font_size
             break
 
-    # Draw only the bottom "days left" text
+
+    # Draw a bottom banner for the "days left" text
+    banner_height = int(height * 0.13)
+    banner_y0 = height - banner_height
+    banner_y1 = height
+    banner_color = (0, 0, 0, 180)  # Semi-transparent black
+    draw.rectangle([0, banner_y0, width, banner_y1], fill=banner_color)
+
+    # Center the text vertically in the banner
     bottom_text = text
     bottom_font = font
     bottom_bbox = draw.textbbox((0, 0), bottom_text, font=bottom_font)
     bottom_text_width = bottom_bbox[2] - bottom_bbox[0]
     bottom_text_height = bottom_bbox[3] - bottom_bbox[1]
     bottom_x = (width - bottom_text_width) // 2
-    bottom_y = height - bottom_text_height - int(height * 0.04)  # 4% margin from bottom
+    bottom_y = banner_y0 + (banner_height - bottom_text_height) // 2
 
     # Draw shadow for bottom text with size-appropriate offset
     shadow_offset = max(2, int(min(width, height) * 0.003))  # Scale shadow with image size
     draw.text((bottom_x + shadow_offset, bottom_y + shadow_offset), bottom_text, font=bottom_font, fill=(0, 0, 0, 255))
-    # Draw main bottom text (red)
-    draw.text((bottom_x, bottom_y), bottom_text, fill=(255, 0, 0, 255), font=bottom_font)
+    # Draw main bottom text (white)
+    draw.text((bottom_x, bottom_y), bottom_text, fill=(255, 255, 255, 255), font=bottom_font)
 
     # Add generated date/time label at the top center with appropriate sizing
     generated_label = f"Generated: {today.strftime('%Y-%m-%d %H:%M:%S')}"
