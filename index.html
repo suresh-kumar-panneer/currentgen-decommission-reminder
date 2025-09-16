@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://upgraded-adventure-e2838o3.pages.github.io/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current-Gen Decommission - Live Banner</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Animated circuit pattern */
+        .circuit-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 165, 0, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, rgba(255, 69, 0, 0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 140, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(255, 140, 0, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px, 80px 80px, 40px 40px, 40px 40px;
+            animation: circuitFlow 8s linear infinite;
+        }
+        
+        @keyframes circuitFlow {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 60px 60px, -80px -80px, 40px 40px, -40px -40px; }
+        }
+        
+        /* Main banner container */
+        .banner {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 1400px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            background: linear-gradient(135deg, 
+                rgba(255, 140, 0, 0.15) 0%, 
+                rgba(255, 69, 0, 0.1) 50%, 
+                rgba(255, 140, 0, 0.15) 100%);
+            border: 4px solid #ff8c00;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 40px rgba(255, 140, 0, 0.4),
+                inset 0 4px 20px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Left section - Alert info */
+        .alert-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .alert-icon {
+            font-size: 48px;
+            color: #ff8c00;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .alert-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .alert-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            line-height: 1;
+        }
+        
+        .alert-subtitle {
+            padding: 2px;
+            font-size: 20px;
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        
+        /* Center section - Countdown */
+        .countdown-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px 35px;
+            border-radius: 15px;
+            border: 3px solid #ff8c00;
+            box-shadow: 0 0 25px rgba(255, 140, 0, 0.4);
+        }
+        
+        .countdown-label {
+            font-size: 16px;
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .countdown-display {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 140, 0, 0.1);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 140, 0, 0.3);
+        }
+        
+        .time-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+        }
+        
+        .time-label {
+            font-size: 14px;
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        
+        .time-separator {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            color: #ff8c00;
+            font-weight: 700;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        /* Side status indicators */
+        .left-status, .right-status {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .side-status-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 140, 0, 0.3);
+        }
+        
+        .side-status-label {
+            font-size: 12px;
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        .side-status-lights {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .side-status-light {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            animation: statusBlink 1.5s infinite;
+        }
+        
+        .side-status-light.critical {
+            background: #ff4500;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.8);
+        }
+        
+        .side-status-light.warning {
+            background: #ff8c00;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+            animation-delay: 0.5s;
+        }
+        
+        .side-status-light.active {
+            background: #32cd32;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.8);
+            animation-delay: 1s;
+        }
+        
+        .side-status-light.offline {
+            background: #666;
+            box-shadow: 0 0 10px rgba(102, 102, 102, 0.6);
+            animation-delay: 1.5s;
+        }
+        
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .progress-label {
+            font-size: 14px;
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .progress-bar {
+            width: 400px;
+            height: 12px;
+            background: rgba(255, 69, 0, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 140, 0, 0.4);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4500, #ff8c00, #ffa500);
+            animation: progressGlow 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+            transition: width 1s ease;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+
+        
+        @keyframes statusBlink {
+            0%, 70% { opacity: 1; }
+            71%, 100% { opacity: 0.3; }
+        }
+        
+        /* Floating energy particles */
+        .energy-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ff8c00;
+            border-radius: 50%;
+            animation: energyFlow 6s linear infinite;
+            box-shadow: 0 0 6px rgba(255, 140, 0, 0.8);
+        }
+        
+        @keyframes energyFlow {
+            0% {
+                transform: translateX(-100px) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-20px);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .banner {
+                width: 95%;
+                padding: 0 40px;
+                height: 280px;
+            }
+            
+            .alert-title {
+                font-size: 32px;
+            }
+            
+            .time-value {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .banner {
+                width: 98%;
+                padding: 0 20px;
+                height: 250px;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .alert-title {
+                font-size: 24px;
+            }
+            
+            .countdown-section {
+                padding: 20px 25px;
+            }
+            
+            .time-value {
+                font-size: 24px;
+            }
+            
+            .progress-bar {
+                width: 150px;
+            }
+            
+            .left-status, .right-status {
+                flex-direction: row;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="circuit-bg"></div>
+    
+    <div class="banner" style="opacity: 0.94;">
+        <!-- Left Status Indicators -->
+        <div class="left-status">
+            <div class="side-status-group">
+                <div class="side-status-label"></div>
+                <div class="side-status-lights">
+                    <div class="side-status-light critical"></div>
+                    <div class="side-status-light warning"></div>
+                    <div class="side-status-light active"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alert Section -->
+        <div class="alert-section">
+            <div class="alert-icon">⚡</div>
+            <div class="alert-text">
+                <div class="alert-title">Current-Gen Decommission</div>
+            </div>
+        </div>
+        
+        <!-- Countdown Section -->
+        <div class="countdown-section">
+            <div class="countdown-label">Time Remaining:</div>
+            <div class="countdown-display">
+                <div class="time-unit">
+                    <div class="time-value" id="days">106</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">11</div>
+                    <div class="time-label">Hrs</div>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">37</div>
+                    <div class="time-label">Min</div>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">04</div>
+                    <div class="time-label">Sec</div>
+                </div>
+            </div>
+            <!-- Progress Section -->
+        <div class="progress-container">
+            <div class="progress-label">Migration Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 70.8263%;"></div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- Progress Section -->
+        <div class="alert-subtitle">
+            <div class="alert-subtitle">Legacy system reaching end-of-life</div>
+        </div>
+        
+        <!-- Right Status Indicators -->
+        <div class="right-status">
+            <div class="side-status-group">
+                <div class="side-status-label"></div>
+                <div class="side-status-lights">
+                    <div class="side-status-light critical"></div>
+                    <div class="side-status-light warning"></div>
+                    <div class="side-status-light active"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Set the target date - December 31, 2025 at 11:59:59 PM
+        const targetDate = new Date('2025-12-31T23:59:59').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(3, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                
+                // Update progress bar based on time elapsed
+                const totalTime = targetDate - new Date('2025-01-01T00:00:00').getTime();
+                const elapsed = totalTime - timeLeft;
+                const progressPercent = Math.min((elapsed / totalTime) * 100, 100);
+                document.getElementById('progressFill').style.width = progressPercent + '%';
+                
+            } else {
+                // Countdown has ended
+                document.getElementById('days').textContent = '000';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('progressFill').style.width = '100%';
+                
+                // Change banner appearance when deadline is reached
+                document.querySelector('.banner').style.background = 
+                    'linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(139, 0, 0, 0.15) 50%, rgba(255, 0, 0, 0.2) 100%)';
+                document.querySelector('.alert-subtitle').textContent = 'DEADLINE REACHED';
+            }
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // Create floating energy particles
+        function createEnergyParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'energy-particle';
+            particle.style.top = Math.random() * 100 + 'px';
+            particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, 8000);
+        }
+        
+        // Generate particles periodically
+        setInterval(createEnergyParticle, 800);
+        
+        // Add dynamic status light behavior
+        setInterval(() => {
+            const lights = document.querySelectorAll('.status-light');
+            lights.forEach((light, index) => {
+                if (Math.random() > 0.8) {
+                    light.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                }
+            });
+        }, 3000);
+        
+        // Add subtle banner breathing effect
+        let breatheDirection = 1;
+        setInterval(() => {
+            const banner = document.querySelector('.banner');
+            const currentOpacity = parseFloat(getComputedStyle(banner).opacity) || 1;
+            const newOpacity = currentOpacity + (breatheDirection * 0.02);
+            
+            if (newOpacity >= 1) {
+                breatheDirection = -1;
+            } else if (newOpacity <= 0.95) {
+                breatheDirection = 1;
+            }
+            
+            banner.style.opacity = newOpacity;
+        }, 100);
+    </script>
+
+<div class="energy-particle" style="top: 49.0311px; animation-duration: 6.58462s; animation-delay: 1.82375s;"></div><div class="energy-particle" style="top: 2.5415px; animation-duration: 4.98119s; animation-delay: 1.16256s;"></div><div class="energy-particle" style="top: 98.3398px; animation-duration: 5.70568s; animation-delay: 0.0868083s;"></div><div class="energy-particle" style="top: 37.6595px; animation-duration: 4.63653s; animation-delay: 1.48907s;"></div><div class="energy-particle" style="top: 5.98016px; animation-duration: 4.57586s; animation-delay: 1.34516s;"></div><div class="energy-particle" style="top: 21.2987px; animation-duration: 6.30651s; animation-delay: 0.329648s;"></div><div class="energy-particle" style="top: 3.20458px; animation-duration: 4.64245s; animation-delay: 0.658878s;"></div><div class="energy-particle" style="top: 91.0893px; animation-duration: 4.66653s; animation-delay: 1.76862s;"></div><div class="energy-particle" style="top: 53.3673px; animation-duration: 5.05287s; animation-delay: 1.55382s;"></div><div class="energy-particle" style="top: 7.51506px; animation-duration: 6.67372s; animation-delay: 1.44745s;"></div></body></html>
